@@ -6,7 +6,8 @@ def upload(f, fs, channel, access):
     try:
         fid = fs.put(f)
     except Exception as err:
-        return "internal server error", 500
+        print(err)
+        return "internal server error - unable to upload video to mongodb", 500
 
     message = {
         "video_fid": str(fid),
@@ -23,6 +24,7 @@ def upload(f, fs, channel, access):
                 delivery_mode=pika.spec.PERSISTENT_DELIVERY_MODE
             )
         )
-    except:
+    except Exception as err:
         fs.delete(fid)
-        return "internal server error", 500
+        print(err)
+        return "internal server error - unable to publish video to queue", 500

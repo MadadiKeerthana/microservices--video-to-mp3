@@ -64,10 +64,10 @@ def validate():
     
     try:
         decoded = jwt.decode(
-            encoded_jwt, os.environ.get("JWT_SECRET"), algorithm=["HS256"]
+            encoded_jwt, os.environ.get("JWT_SECRET"), algorithms=["HS256"]
         )
-    except:  # noqa: E722
-        return "not authorized", 403
+    except:
+        print("decoding error", 500)
     
     return decoded, 200
         
@@ -76,8 +76,7 @@ def createJWT(username, secret, authz):
     return jwt.encode(
         {
             "username": username,
-            "exp": datetime.datetime.now(tz=datetime.timezone.utc)
-            + datetime.timedelta(days=1),
+            "exp": datetime.datetime.now(tz=datetime.timezone.utc) + datetime.timedelta(days=1),
             "iat": datetime.datetime.now(tz=datetime.timezone.utc),
             "admin": authz,
         },

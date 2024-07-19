@@ -3,7 +3,7 @@ import requests
 
 
 def token(request):
-    if "Authorization" not in request.headers:
+    if not "Authorization" in request.headers:
         return None, ("missing credentials", 401)
     
     token = request.headers["Authorization"]
@@ -13,7 +13,7 @@ def token(request):
     
     response = requests.post(
         f"http://{os.environ.get('AUTH_SVC_ADDRESS')}/validate",
-        headers={"Authorization" : token}
+        headers={"Authorization" : token},
     )
     
     if response.status_code == 200:
