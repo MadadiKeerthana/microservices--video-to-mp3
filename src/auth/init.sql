@@ -1,4 +1,4 @@
-CREATE USER 'auth_user'@'localhost' IDENTIFIED BY 'Aauth123';
+CREATE USER 'auth_user'@'localhost' IDENTIFIED BY 'Auth123';
 
 CREATE DATABASE auth;
 
@@ -13,23 +13,5 @@ CREATE TABLE user (
 );
 
 INSERT INTO user (email, password) VALUES ('keerthana@email.com', 'Admin123');
-/*
-mysql -uroot
-    show databases;
-    exit
-mysql -uroot < init.sql
-*queries if needed:
-    mysql -uroot -e "DROP DATABASE auth" 
-    mysql -uroot -e "DROP USER auth_user@localhost"
 
-mysql -uroot
-    show databases;
-    use auth;
-    show tables;
-    describe user;
-    select * from user;
-    exit
-
-
-*/
 
